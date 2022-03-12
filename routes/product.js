@@ -10,6 +10,9 @@ const router = Router();
 //         console.log("Nothing");
 //     }
 // }
+
+
+
 // fake data
 const products = [
     {id: 1, name: "Product A"},

@@ -14,8 +14,8 @@ app.use(cors());
 app.use(morgan('tiny'));
 app.use(express.json());
 
-app.use(productRoute)
-
+app.use("/api",productRoute);
+    
 // const check = (req, res, next) => {
 //     const status = true;
 //     if(status){
