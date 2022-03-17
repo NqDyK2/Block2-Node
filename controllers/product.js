@@ -1,15 +1,4 @@
-// fake data
-// const products = [
-//     {id: 1, name: "Product A"},
-//     {id: 2, name: "Product B"},
-//     {id: 3, name: "Product C"},
-//     {id: 4, name: "Product D"},
-//     {id: 5, name: "Product E"}
-// ];
-import req from "express/lib/request";
-import mongoose from "mongoose";
-const Product = mongoose.model('Product', { name: String });
-
+import Product from "../models/product";
 // API thêm sản phẩm
 export const create = async (req, res) => {
     try {
@@ -71,4 +60,4 @@ export const update = async (req, res) => {
 // }
 // export const update = (req, res) => {
 //     res.json(products.map(item => item.id == req.params.id ? req.body : item));
-// }   
+// }  

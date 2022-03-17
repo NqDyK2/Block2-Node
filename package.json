@@ -17,6 +17,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-0": "^6.24.1",
     "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
     "express": "^4.17.3",
     "mongoose": "^6.2.6",
     "morgan": "^1.10.0"
