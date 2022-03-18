@@ -1,5 +1,5 @@
 import mongoose,{Schema} from "mongoose";
-
+import { creatHcma } from "crypto-js"
 const productSchema = new Schema ({
     email: {
         type: String, 
@@ -9,13 +9,18 @@ const productSchema = new Schema ({
     name: {
         type: String,
         required: true,
-        minlength:7,
+        default: ''
     },
-    password: {
+    hash_password: {
         type: String,
         minlength: 8,
         required:true
     },
-    registeredAt: { type: Date, index: true }
-})
-export default mongoose.model('user', productSchema)
+    salt: {
+        type:String
+    },
+},
+{timestamps: true}
+
+)
+export default mongoose.model('User', productSchema)
