@@ -9,7 +9,7 @@ import mongoose from 'mongoose';
 import productRoute from "../routes/product"
 import postRoute from "../routes/post"
 import categoryRoute from "../routes/category"
-import userRoute from "../routes/user"
+import userRoute from "../routes/auth"
 
 
 // const http = require('http');
@@ -21,8 +21,8 @@ app.use(cors());
 app.use(morgan('tiny'));
 app.use(express.json());
 
-app.use("/api",productRoute);
-app.use("/api",postRoute);
+app.use("/api", productRoute);
+app.use("/api", postRoute);
 app.use("/api", categoryRoute)
 app.use("/api", userRoute)
 

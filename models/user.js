@@ -1,26 +1,50 @@
 import mongoose,{Schema} from "mongoose";
-import { creatHcma } from "crypto-js"
-const productSchema = new Schema ({
+// import { v4 as uuid4 } from 'uuid';
+import { createHmac } from "crypto";
+
+const userSchema  = new Schema ({
     email: {
         type: String, 
         required: true, 
-        unique: true
-    },
+        },
     name: {
         type: String,
         required: true,
-        default: ''
+        default: '',
+        maxlength:30
     },
-    hash_password: {
+    password: {
         type: String,
-        minlength: 8,
+        minlength: 6,
         required:true
     },
     salt: {
-        type:String
-    },
-},
-{timestamps: true}
+        type: String,
+    }
+},{timestamps: true})
 
-)
-export default mongoose.model('User', productSchema)
+
+userSchema.methods = {
+    authenticate(password){
+        return this.encryptPassword(password) == this.password;
+    },
+    encryptPassword(password){
+        if(!password) return;
+        try {
+            return createHmac('sha256',"ABCDFE").update(password).digest('hex');      
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+userSchema.pre('save', function(next){
+        // this.salt = uuid4();
+        // console.log( this.encryptPassword(this.password))
+        this.password = this.encryptPassword(this.password);
+        next();
+})
+
+
+
+export default mongoose.model('User', userSchema)
