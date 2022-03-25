@@ -25,11 +25,24 @@ export const signin = async (req, res) => {
     try {
         const user = await User.findOne({email}).exec();
         if(!user){
-            res.json({
+            res.status(400).json({
                 message: "Chưa có email"
             })
         }
-        res.json(user)
+        if(!user.authenticate(password)){
+            res.status(400).json({
+                message:"Sai mật khẩu"
+            })
+        }
+
+        res.json({
+            user:{
+                _id: user._id,
+                email:user.email,
+                name: user.name
+            }
+        
+        })
     } catch (error){
         res.status(400).json({error})
     }
