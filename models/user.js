@@ -20,13 +20,17 @@ const userSchema  = new Schema ({
     },
     salt: {
         type: String,
+    },
+    role: {
+        type: Number,
+        default: 0
     }
 },{timestamps: true})
 
 
 userSchema.methods = {
     authenticate(password){
-        return this.encryptPassword(password) == this.password;
+        return  this.password == this.encryptPassword(password) 
     },
     encryptPassword(password){
         if(!password) return;
