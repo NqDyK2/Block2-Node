@@ -1,4 +1,5 @@
 import Product from "../models/product";
+import { productUtils } from "../Utils/productUtils";
 // API thêm sản phẩm
 export const create = async (req, res) => {
     try {
@@ -51,6 +52,16 @@ export const update = async (req, res) => {
         })
     }
 }
+            export const search = async (req,res) => {
+                try {
+                    const title = req.query.q;
+                    const searchString = title ? title : ""
+                    const result = await Product.find({$text: {$search: searchString}});
+                    res.json(result)
+                } catch (error) {
+                    res.status(400).json(error)
+                }
+            }
 // export const read = (req, res) => {
 //     res.json( products.find(item => item.id === +req.params.id));
 // }

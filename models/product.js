@@ -4,6 +4,7 @@ const productSchema = new Schema({
     name :{
         type: String,
         minlength: 7,
+        index: true,
         required: true
     },
     price: {
@@ -13,6 +14,11 @@ const productSchema = new Schema({
     category: {
         type: ObjectId,
         ref: "Category"
+    },
+    keyword: {
+        type: String,
+        required:true,
     }
 }, {timestamps: true});
+ productSchema.index({'$**': 'text'});
 export default mongoose.model('Product', productSchema);
