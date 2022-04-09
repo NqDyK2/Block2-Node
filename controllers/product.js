@@ -1,9 +1,11 @@
 import Product from "../models/product";
-import { productUtils } from "../Utils/productUtils";
 // API thêm sản phẩm
 export const create = async (req, res) => {
+    console.log(req.body);
     try {
-        const product = await new Product(req.body).save();
+        console.log(1);
+        const product = await Product(req.body).save();
+        console.log(product);
         res.json(product)    
     } catch (error) {
         res.status(400).json({
@@ -62,6 +64,51 @@ export const update = async (req, res) => {
                     res.status(400).json(error)
                 }
             }
+
+export const paginate = async (req,res) =>{
+    try {
+        const PAGE_SIZE = 3;
+        const page = parseInt(req.query.page || "0");
+        const total = await Product.countDocuments({})
+        const product = await Product.find({})
+        .limit(PAGE_SIZE)
+        .skip(PAGE_SIZE * page);
+        res.json({
+            totalPages: Math.ceil(total / PAGE_SIZE),
+            product
+        })
+    } catch (error) {
+      res.json(error)  
+    }
+}
+
+// export const  paginate = async (req,res) => {
+//     try {
+//         const { pageSize = 8 , pageIndex = 1} = req.query
+//         const startIndex = req.query.pageIndex -1 * req.query.pageSize
+//         const endIndex = req.query.pageIndex * req.query.pageSize
+//         const product = await Product.find().limit()
+//     } catch (error) {
+        
+//     }
+//     try {
+//         const { page = 1, limit = 10} = req.query;
+//         const products = await Product.find().limit(limit+1).skip(( page - 1 ) * limit );
+//         res.status(200).json({total: products.length, products});
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
+export const sort = async (req,res) => {
+    try {
+        const products = await Product.find().sort({price:1})
+        res.json(products)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+}
+
+
 // export const read = (req, res) => {
 //     res.json( products.find(item => item.id === +req.params.id));
 // }

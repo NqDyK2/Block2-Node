@@ -3,7 +3,6 @@ import mongoose, {Schema, ObjectId} from "mongoose";
 const productSchema = new Schema({
     name :{
         type: String,
-        minlength: 7,
         index: true,
         required: true
     },
@@ -15,10 +14,10 @@ const productSchema = new Schema({
         type: ObjectId,
         ref: "Category"
     },
-    keyword: {
-        type: String,
+    desc:   {
+        type: String, 
         required:true,
-    }
+    },
 }, {timestamps: true});
  productSchema.index({'$**': 'text'});
 export default mongoose.model('Product', productSchema);
