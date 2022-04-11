@@ -67,7 +67,7 @@ export const update = async (req, res) => {
 
 export const paginate = async (req,res) =>{
     try {
-        const PAGE_SIZE = 3;
+        const PAGE_SIZE = 4;
         const page = parseInt(req.query.page || "0");
         const total = await Product.countDocuments({})
         const product = await Product.find({})

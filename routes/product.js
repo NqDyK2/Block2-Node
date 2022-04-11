@@ -14,7 +14,7 @@ router.post('/products/:userId', requireSignin, isAuth, isAdmin,create);
 router.delete('/product/:userId/:id', requireSignin, isAuth, isAdmin, remove);
 router.patch("/product/:userId/:id", requireSignin, isAuth, isAdmin, update );
 router.post("/search", search );
-router.get("/products",paginate);
+// router.get("/products",paginate);
 router.get("/products/sortprice", sort);
 
     
