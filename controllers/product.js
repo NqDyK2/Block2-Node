@@ -81,6 +81,30 @@ export const paginate = async (req,res) =>{
       res.json(error)  
     }
 }
+export const sort = async (req,res) => {
+    try {
+        const products = await Product.find({}).sort(req.query.sort).exec(function (err, listings) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render('rentals', { listings: listings })
+            }
+        })
+        // res.json(products)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+}
+export const filCate = async (req,res) => {
+    try {
+        const products = await Product.find().populate({path : 'Category', match: { _id:req.params.id },})
+        res(products)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+}
+
+
 
 // export const  paginate = async (req,res) => {
 //     try {
@@ -99,14 +123,6 @@ export const paginate = async (req,res) =>{
 //         console.log(error);
 //     }
 // }
-export const sort = async (req,res) => {
-    try {
-        const products = await Product.find().sort({price:1})
-        res.json(products)
-    } catch (error) {
-        res.status(400).json(error)
-    }
-}
 
 
 // export const read = (req, res) => {
